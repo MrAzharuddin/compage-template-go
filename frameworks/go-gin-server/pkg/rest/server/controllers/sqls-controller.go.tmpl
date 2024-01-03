@@ -67,7 +67,6 @@ func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Con
 func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Controller) Fetch{{.CapsResourceNameSingular}}(context *gin.Context) {
     id := context.Param("id")
     if len(id) == 0 {
-        log.Error(err)
         context.JSON(http.StatusBadRequest, gin.H{"error": "id is required"})
         return
     }
@@ -107,7 +106,6 @@ func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Con
 
     id := context.Param("id")
     if len(id) == 0 {
-        log.Error(err)
         context.JSON(http.StatusBadRequest, gin.H{"error": "id is required"})
         return
     }
@@ -129,12 +127,11 @@ func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Con
 
 {{ if .IsRESTDeleteAllowed }}
 func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Controller) Delete{{.CapsResourceNameSingular}}(context *gin.Context) {
-	id, err := strconv.ParseInt(context.Param("id"), 10, 64)
-	if err != nil {
-		log.Error(err)
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+    id := context.Param("id")
+    if len(id) == 0 {
+        context.JSON(http.StatusBadRequest, gin.H{"error": "id is required"})
+        return
+    }
 
 	// trigger {{.SmallResourceNameSingular}} deletion
 	if err := {{.SmallResourceNameSingular}}Controller.{{.SmallResourceNameSingular}}Service.Delete{{.CapsResourceNameSingular}}(id); err != nil {
