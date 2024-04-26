@@ -28,6 +28,17 @@ func New{{.CapsResourceNameSingular}}Controller() (*{{.CapsResourceNameSingular}
 }
 
 {{ if .IsRESTCreateAllowed }}
+// Create{{.CapsResourceNameSingular}} creates a new {{.SmallResourceNameSingular}} for the {{.SmallResourceNameSingular}} service
+// @Summary Creates a new {{.SmallResourceNameSingular}}
+// @Description Creates a new {{.SmallResourceNameSingular}}
+// @Tags {{.SmallResourceNamePlural}}
+// @Accept json
+// @Produce json
+// @Param {{.SmallResourceNameSingular}} body models.{{.CapsResourceNameSingular}} true "Create {{.SmallResourceNameSingular}}"
+// @Success 201 {object} models.{{.CapsResourceNameSingular}}
+// @Failure 422 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /{{.SmallResourceNamePlural}} [post]
 func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Controller) Create{{.CapsResourceNameSingular}}(context *gin.Context) {
 	// validate input
 	var input models.{{.CapsResourceNameSingular}}
@@ -50,6 +61,15 @@ func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Con
 {{ end }}
 
 {{ if .IsRESTListAllowed }}
+// List{{.CapsResourceNamePlural}} lists all {{.SmallResourceNamePlural}} for the {{.SmallResourceNameSingular}} service
+// @Summary Lists all {{.SmallResourceNamePlural}}
+// @Description Lists all {{.SmallResourceNamePlural}}
+// @Tags {{.SmallResourceNamePlural}}
+// @Accept json
+// @Produce json
+// @Success 200 {array} models.{{.CapsResourceNameSingular}}
+// @Failure 500 {object} ErrorResponse
+// @Router /{{.SmallResourceNamePlural}} [get]
 func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Controller) List{{.CapsResourceNamePlural}}(context *gin.Context) {
 	// trigger all {{.SmallResourceNamePlural}} fetching
 	{{.SmallResourceNamePlural}}, err := {{.SmallResourceNameSingular}}Controller.{{.SmallResourceNameSingular}}Service.List{{.CapsResourceNamePlural}}()
@@ -64,6 +84,17 @@ func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Con
 {{ end }}
 
 {{ if .IsRESTGetAllowed }}
+// Fetch{{.CapsResourceNameSingular}} fetches a single {{.SmallResourceNameSingular}} for the {{.SmallResourceNameSingular}} service
+// @Summary Fetches a single {{.SmallResourceNameSingular}}
+// @Description Fetches a single {{.SmallResourceNameSingular}}
+// @Tags {{.SmallResourceNamePlural}}
+// @Accept json
+// @Produce json
+// @Param id path int true "id"
+// @Success 200 {object} models.{{.CapsResourceNameSingular}}
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /{{.SmallResourceNamePlural}}/{id} [get]
 func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Controller) Fetch{{.CapsResourceNameSingular}}(context *gin.Context) {
 	// trigger {{.SmallResourceNameSingular}} fetching
 	{{.SmallResourceNameSingular}}, err := {{.SmallResourceNameSingular}}Controller.{{.SmallResourceNameSingular}}Service.Get{{.CapsResourceNameSingular}}(context.Param("id"))
@@ -93,6 +124,19 @@ func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Con
 {{ end }}
 
 {{ if .IsRESTPutAllowed }}
+// Update{{.CapsResourceNameSingular}} updates a single {{.SmallResourceNameSingular}} for the {{.SmallResourceNameSingular}} service
+// @Summary Updates a single {{.SmallResourceNameSingular}}
+// @Description Updates a single {{.SmallResourceNameSingular}}
+// @Tags {{.SmallResourceNamePlural}}
+// @Accept json
+// @Produce json
+// @Param id path int true "id"
+// @Param {{.SmallResourceNameSingular}} body models.{{.CapsResourceNameSingular}} true "Update {{.SmallResourceNameSingular}}"
+// @Success 204 {object} interface{}
+// @Failure 404 {object} ErrorResponse
+// @Failure 422 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /{{.SmallResourceNamePlural}}/{id} [put]
 func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Controller) Update{{.CapsResourceNameSingular}}(context *gin.Context) {
 	// validate input
 	var input models.{{.CapsResourceNameSingular}}
@@ -122,6 +166,17 @@ func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Con
 {{ end }}
 
 {{ if .IsRESTDeleteAllowed }}
+// Delete{{.CapsResourceNameSingular}} deletes a single {{.SmallResourceNameSingular}} for the {{.SmallResourceNameSingular}} service
+// @Summary Deletes a single {{.SmallResourceNameSingular}}
+// @Description Deletes a single {{.SmallResourceNameSingular}}
+// @Tags {{.SmallResourceNamePlural}}
+// @Accept json
+// @Produce json
+// @Param id path int true "id"
+// @Success 204 {object} interface{}
+// @Failure 404 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /{{.SmallResourceNamePlural}}/{id} [delete]
 func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Controller) Delete{{.CapsResourceNameSingular}}(context *gin.Context) {
 	// trigger {{.SmallResourceNameSingular}} deletion
 	if err := {{.SmallResourceNameSingular}}Controller.{{.SmallResourceNameSingular}}Service.Delete{{.CapsResourceNameSingular}}(context.Param("id")); err != nil {
@@ -143,6 +198,19 @@ func ({{.SmallResourceNameSingular}}Controller *{{.CapsResourceNameSingular}}Con
 {{ end }}
 
 {{ if .IsRESTPatchAllowed }}
+// Patch{{.CapsResourceNameSingular}} updates a single {{.SmallResourceNameSingular}} for the {{.SmallResourceNameSingular}} service
+// @Summary Updates a single {{.SmallResourceNameSingular}}
+// @Description Updates a single {{.SmallResourceNameSingular}}
+// @Tags {{.SmallResourceNamePlural}}
+// @Accept json
+// @Produce json
+// @Param id path int true "id"
+// @Param {{.SmallResourceNameSingular}} body models.{{.CapsResourceNameSingular}} true "Update {{.SmallResourceNameSingular}}"
+// @Success 204 {object} interface{}
+// @Failure 404 {object} ErrorResponse
+// @Failure 422 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /{{.SmallResourceNamePlural}}/{id} [patch]
 func (*{{.CapsResourceNameSingular}}Controller) Patch{{.CapsResourceNameSingular}}(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{
 		"message": "PATCH",
@@ -151,6 +219,18 @@ func (*{{.CapsResourceNameSingular}}Controller) Patch{{.CapsResourceNameSingular
 {{ end }}
 
 {{ if .IsRESTOptionsAllowed }}
+// Options{{.CapsResourceNameSingular}} updates a single {{.SmallResourceNameSingular}} for the {{.SmallResourceNameSingular}} service
+// @Summary Updates a single {{.SmallResourceNameSingular}}
+// @Description Updates a single {{.SmallResourceNameSingular}}
+// @Tags {{.SmallResourceNamePlural}}
+// @Accept json
+// @Produce json
+// @Param id path int true "id"
+// @Success 204 {object} interface{}
+// @Failure 404 {object} ErrorResponse
+// @Failure 422 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /{{.SmallResourceNamePlural}}/{id} [options]
 func (*{{.CapsResourceNameSingular}}Controller) Options{{.CapsResourceNameSingular}}(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{
 		"message": "OPTIONS",
@@ -159,6 +239,18 @@ func (*{{.CapsResourceNameSingular}}Controller) Options{{.CapsResourceNameSingul
 {{ end }}
 
 {{ if .IsRESTHeadAllowed }}
+// Head{{.CapsResourceNameSingular}} updates a single {{.SmallResourceNameSingular}} for the {{.SmallResourceNameSingular}} service
+// @Summary Updates a single {{.SmallResourceNameSingular}}
+// @Description Updates a single {{.SmallResourceNameSingular}}
+// @Tags {{.SmallResourceNamePlural}}
+// @Accept json
+// @Produce json
+// @Param id path int true "id"
+// @Success 204 {object} interface{}
+// @Failure 404 {object} ErrorResponse
+// @Failure 422 {object} ErrorResponse
+// @Failure 500 {object} ErrorResponse
+// @Router /{{.SmallResourceNamePlural}}/{id} [head]
 func (*{{.CapsResourceNameSingular}}Controller) Head{{.CapsResourceNameSingular}}(context *gin.Context) {
 	context.JSON(http.StatusOK, gin.H{
 		"message": "HEAD",

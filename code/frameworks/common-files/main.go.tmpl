@@ -43,6 +43,9 @@ import (
         "go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
         log "github.com/sirupsen/logrus"
         "os"
+        swaggerfiles "github.com/swaggo/files"
+	    ginSwagger "github.com/swaggo/gin-swagger"
+	    _ "{{.GitPlatformURL}}/{{.GitPlatformUserName}}/{{.GitRepositoryName}}/{{.NodeName}}/docs"
 {{end}}
 
 {{if .HasRestClients}}
@@ -67,6 +70,20 @@ var (
     insecure     = os.Getenv("INSECURE_MODE")
 )
 
+{{ if .IsRestServer }}
+//	@title			{{ .NodeName }}
+//	@version		1.0
+//	@description	Testing Swagger APIs.
+//	@termsOfService	http://swagger.io/terms/
+//	@contact.name	API Support
+//	@contact.url	http://www.swagger.io/support
+//	@contact.email	support@swagger.io	
+//	@license.name	Apache 2.0
+//	@license.url	http://www.apache.org/licenses/LICENSE-2.0.html
+//	@host			localhost:{{.RestServerPort}}
+//	@BasePath		/v1
+//	@schemes		http
+{{ end }}
 func main() {
  {{if .IsGrpcServer }}
     // grpc server configuration
@@ -157,6 +174,8 @@ func main() {
             os.Exit(1)
         }
     {{end}}
+    // swagger configuration to serve the API docs
+    router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
     v1 := router.Group("/v1")
     {
         {{range $i, $v := .RestResources}}
